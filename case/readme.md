@@ -2,40 +2,59 @@
 
 Case designs pro projects with this type of LCD for Nokia 5110 [@eBay](http://www.ebay.com/itm/221475096725):
 
-![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/lcd5110.jpg)
+<img src="../doc/img/lcd5110.jpg" width="200px">
 
 
 The case is designed in a parametric 3D CAD modeller [OpenSCAD](http://www.openscad.org/)
 and printed on a 3D printer from ABS plastics.
 
+
 ## Box variants
 
 ### V1 - Flat spacy box with powerbank
-   * With holder for power bank electronics - see below
-   * *I don't recommend print it in the current form*, this was the first prototype,
-     there should be some corrections, mainly GPS holder takes needlessly too space,
-     it's impossible to plug some micro USB
-   * ![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v1.png)
+
+* With holder for power bank electronics - see below
+* *I don't recommend print it in the current form*, this was the first prototype,
+  there should be some corrections, mainly GPS holder takes needlessly too space,
+  it's impossible to plug some micro USB
+
+<img src="../doc/img/case-v1.png" width="200px">
+
 
 ### V2 - Flat small box with or without powerbank
-   * Smaller than variant 1, corrected problems
-   * Includes subvarinats with and without holder for power bank electronics
-   * *I've never tested this design*, probably the STM32 board holder would require some adjusting
-   * Probably too little space inside for my style of wiring
-   * **A**: with holder for power bank electronics (`with_battery = true`)
-     * ![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v2.png)
-   * **B**: tiny, without holder for power bank electronics (`with_battery = false`)
-     * meant to be powered from external supply directly to STM32 micro USB port
-     * ![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v2b-f.png)
-     * ![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v2b-b.png)
+
+* Smaller than variant 1, corrected problems
+* Includes subvarinats with and without holder for power bank electronics
+* *I've never tested this design*, probably the STM32 board holder would require some adjusting
+* Probably too little space inside for my style of wiring
+
+#### V2-A - with holder for power bank electronics
+
+* set `with_battery = true`
+
+<img src="../doc/img/case-v2.png" width="200px">
+
+
+#### V2-B tiny, without holder for power bank electronics
+
+* set `with_battery = false`
+* meant to be powered from external supply directly to STM32 micro USB port
+
+<img src="../doc/img/case-v2b-f.png" width="200px">
+<img src="../doc/img/case-v2b-b.png" width="200px">
+
 
 ### Prism long box with powerbank
-   * With holder for power bank electronics - see below
-   * ![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v3.png)
+
+* With holder for power bank electronics - see below
+
+<img src="../doc/img/case-v3.png" width="200px">
+
 
 ### Prism short box
-   * With holder separate battery charger board
-   * *favourite design, but not tested yet*
+
+* With holder separate battery charger board
+* *favourite design, but not tested yet*
 
 
 ## Adjustments

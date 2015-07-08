@@ -34,12 +34,37 @@ The latest version OGN-Airtracker assembly contains:
   [@eBay](http://www.ebay.com/itm/271876448943)
 
 
+### Power supply
+
+Approximate power consumptions:
+* STM32 max 50mA@72MHz
+* RFM69HW Tx 95mA/+17dBm
+* GPS max 67mW (20mA@3.3V)
+* LCD max 300uA
+
+* Total is cca max 165.3mA@3.3V
+
+Regulator on STM32F103C8T6 CPU board:
+* DE=A1D - probably kind of RT9193-33:
+* Iout max 300mA
+* Vin 2.5 - 5.5V
+* dropout 220mV@300mA
+* low noise typ. 100uVRMS 10Hz - 100kHz @200mA
+
+* Avoiding other more or less noisy switching regulators, the integrated one should
+  have enough power for all the peripherals and can be connected to 18650 battery
+  (through an undervoltage battery protection circuit).
+
+
 ## Software
 
-Software is again a fork of the [Cheap Do-It-Yourself OGN tracker sw](https://github.com/glidernet/diy-tracker)
+Software is a fork of the [Cheap Do-It-Yourself OGN tracker sw](https://github.com/glidernet/diy-tracker)
 enhanced with LCD display and buttons control.
 
 For now in [separate module](https://github.com/peclik/diy-tracker/tree/lcd).
+
+Build with LCD support:
+* `make "WITH_OPTS=lcd5110 buttons"`
 
 
 ## Case

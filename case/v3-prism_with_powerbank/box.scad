@@ -3,6 +3,9 @@
   LCD5110 project case.
   V3 variant - Prismatic design with powerbank.
 
+  Because of integrated printed battery and electronics holders, the box is
+  printed from bottom to up. So the cover will be visible on top.
+
   This work by Richard Pecl is licensed under a Creative Commons
   Attribution-ShareAlike 4.0 International License
   <http://creativecommons.org/licenses/by-sa/4.0/>.
@@ -10,6 +13,12 @@
 //------------------------------------------------------------------------------
 /*
 TODO:
+[*] moved on/off switch hole up (making space for possible GPS antenna connector)
+[-] lowered LCD view hole
+[-] narrowed the battery holder - power bank electronics was too loose
+[-] widened space for USB micro plug
+[-] widened space for LCD metal cover protrusions
+[!] hole and mounting points for buttons in the top cover
 
 CHANGELOG:
 
