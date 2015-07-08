@@ -15,7 +15,7 @@ and printed on a 3D printer from ABS plastics.
    * *I don't recommend print it in the current form*, this was the first prototype,
      there should be some corrections, mainly GPS holder takes needlessly too space,
      it's impossible to plug some micro USB
-   * [![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v1.png)]
+   * ![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v1.png)
 
 ### V2 - Flat small box with or without powerbank
    * Smaller than variant 1, corrected problems
@@ -23,15 +23,15 @@ and printed on a 3D printer from ABS plastics.
    * *I've never tested this design*, probably the STM32 board holder would require some adjusting
    * Probably too little space inside for my style of wiring
    * **A**: with holder for power bank electronics (`with_battery = true`)
-     * [![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v2.png)]
+     * ![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v2.png)
    * **B**: tiny, without holder for power bank electronics (`with_battery = false`)
      * meant to be powered from external supply directly to STM32 micro USB port
-     * [![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v2-f.png)]
-     * [![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v2-b.png)]
+     * ![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v2b-f.png)
+     * ![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v2b-b.png)
 
 ### Prism long box with powerbank
    * With holder for power bank electronics - see below
-   * [![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v3.png)]
+   * ![](https://raw.github.com/peclik/ogn-airtracker/master/doc/img/case-v3.png)
 
 ### Prism short box
    * With holder separate battery charger board
