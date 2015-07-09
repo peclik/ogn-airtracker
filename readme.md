@@ -57,14 +57,14 @@ What I've learned:
 * I've bought a noname "10cm rubber antenna" thinking it will be better than those 1/4 wave antennas
   in a shorter housing.
 
-  <img src="../doc/img/antenna-1-4w-10cm.jpg" width="200px">
+  <img src="doc/img/antenna-1-4w-10cm.jpg" width="200px">
   * After removing the plastic housing, I've realized that it's just a 1/4 wave coil which
     could easily fit into a housing of a half length
   * So this antenna type would *require a good ground plane*
 
 * I've also bought "21cm 3dB antenna"
 
-  <img src="../doc/img/antenna-1-2w-21cm.jpg" width="200px">
+  <img src="doc/img/antenna-1-2w-21cm.jpg" width="200px">
   * This one has a whip style center-fed dipole antenna inside
   * Such antenna doesn't require a ground plane, moreover according to papers mentioned,
     the *ground plane can negatively influence antenna performace* (narrowing or widening bandwidth,
