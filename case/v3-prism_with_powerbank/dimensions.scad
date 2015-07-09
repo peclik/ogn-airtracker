@@ -35,7 +35,7 @@ batt_wall_t = 2.2;
 batt_wall_z = 20;
 
 // gap between left and right battery compartment walls
-batt_in_gap = 19 + tolerance;
+batt_in_gap = 18.8 + tolerance;
 
 // battery length (including contacts)
 batt_len = 70.5;
@@ -55,22 +55,22 @@ box_corner_r = 1.5;
 
 // 5110 display dimensions
 displ_pcb_x = 43;
-displ_box_y = 6;
+displ_box_y = 6.5;
 displ_pcb_z = 45;
 
-displ_cover_x_ofs = 1;
-displ_cover_z_ofs = 5;
+//displ_cover_x_ofs = 1;
+//displ_cover_z_ofs = 5;
 
-displ_cover_x = 41;
-displ_cover_y = 3.5;
-displ_cover_z = 34;
+//displ_cover_x = 41;
+//displ_cover_y = 3.5;
+//displ_cover_z = 34;
 
 displ_lcd_x_ofs = 5;
-displ_lcd_z_ofs = 9;
+displ_lcd_z_ofs = 8.5;
 
 // lcd hole width and height
 displ_lcd_x = displ_pcb_x-2*displ_lcd_x_ofs;
-displ_lcd_z = displ_pcb_z-13-displ_lcd_z_ofs;
+displ_lcd_z = displ_pcb_z-13.5-displ_lcd_z_ofs;
 
 displ_supp_t = 1.5;
 
@@ -89,7 +89,7 @@ uswitch_supp_z = 4;
 // box inner dimensions
 box_i_x = ((displ_pcb_z > displ_pcb_x) ? displ_pcb_z : displ_pcb_x) + tolerance;
 box_i_y = displ_box_y + tolerance + box_screw_t + batt_len + batt_el_len;
-box_i_z = displ_pcb_z + tolerance;
+box_i_z = displ_pcb_z + 2*tolerance;
 
 //------------------------------------------------------------------------------
 

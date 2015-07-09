@@ -15,7 +15,8 @@ The latest version OGN-Airtracker assembly contains:
 * SMA-female socket with pigtail
 * SW868-WT100 868MHz 50ohm antenna with SMA-male right angle connector
   [@AliExpress](http://www.aliexpress.com/item/NiceRF-Rubber-Antenna-SW868-WT100-Wireless-RF-Antenna-868MHz/32319847439.html)
-* Adhesive copper foil tape for antenna counter-weight
+* Adhesive copper foil tape for antenna counter-weight (some of those short rubber/whip
+  antennas are 1/4 wave monopoles and require ground plane for proper work)
   [@eBay](http://www.ebay.com/itm/161170293355)
 * VK2828U7G5LF GPS module
   [@eBay](http://www.ebay.com/itm/251959460965)

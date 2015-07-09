@@ -15,6 +15,7 @@ TODO:
  - better access to battery when it's just above the cover
  - todo: upside down LCD, switch and antenna holes, charger holder on a side like LCD holder,
    microswitches from cover to box)
+[+] gps holder
 
 CHANGELOG:
 

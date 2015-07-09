@@ -13,19 +13,21 @@
 //------------------------------------------------------------------------------
 /*
 TODO:
-[*] moved on/off switch hole up (making space for possible GPS antenna connector)
-[-] lowered LCD view hole
-[-] narrowed the battery holder - power bank electronics was too loose
-[-] widened space for USB micro plug
-[-] widened space for LCD metal cover protrusions
-[!] hole and mounting points for buttons in the top cover
 
 CHANGELOG:
+
+V3.1:
+[*] moved on/off switch hole up (making space for possible GPS antenna connector)
+[*] increase size of the button symbols
+[-] lowered LCD view hole
+[-] narrowed the battery holder - power bank electronics was too loose
+[-] widened x space for LCD (to fit metal cover protrusions)
+[-] increased inner height to easily for LCD pcb
+[-] widened space for USB micro plug
 
 V3.0 (based on V2.0):
 
 */
-
 
 include <dimensions.scad>;
 
@@ -34,7 +36,7 @@ include <dimensions.scad>;
 // columns for screwing back cover
 module box_screw_column(h=box_i_z) {
   screw_h = h;
-  hole_r = 0.9;
+  hole_r = 1.2;
 
   difference() {
     cube([box_screw_t, box_screw_t, h]);
@@ -55,7 +57,6 @@ module base_box() {
       translate([box_corner_r-wall_t, box_corner_r-wall_t, box_corner_r-bottom_t])
       hull()
       {
-        //cube([box_o_x-2*box_corner_r, box_o_y-2*box_corner_r, box_o_z-2*box_corner_r]);
         // bottom rounded corners
         sphere(r = box_corner_r);
         translate([box_o_x-2*box_corner_r, 0, 0])
@@ -171,8 +172,8 @@ module battery_usb_holes() {
 
   // micro outter engrave
   u_engrave = wall_t-1;
-  translate([(batt_in_gap-11-tolerance)/2, 0, 5-(7-5+tolerance)/2])
-    cube([11+tolerance, u_engrave+rf, 7+tolerance]);
+  translate([(batt_in_gap-12-tolerance)/2, 0, 5-(8-5+tolerance)/2])
+    cube([12+tolerance, u_engrave+rf, 8+tolerance]);
 }
 
 //------------------------------------------------------------------------------
@@ -212,11 +213,6 @@ module display_box() {
   // view hole
   translate([to_center_x_ofs+displ_lcd_x_ofs, -wall_t-rf, displ_lcd_z_ofs])
     cube([displ_lcd_x, wall_t+2*rf, displ_lcd_z]);
-
-  // cover + pcb
-  //translate([to_center_x_ofs-tolerance/2, -wall_t-displ_box_y-tolerance, 0])
-  //  cube([displ_pcb_x+tolerance, displ_box_y+tolerance, box_i_z+rf]);
-
 }
 
 // support for material above display view hole
@@ -229,11 +225,7 @@ module display_view_support() {
     cube([displ_lcd_x+2*rf, supp_t, displ_lcd_z+2*rf]);
 
   translate([to_center_x_ofs+displ_lcd_x_ofs+1, -wall_t, view_hole_top_z-5])
-    rotate([-7, 0, 0])
-      cube([displ_lcd_x-2, supp_t, 6]);
-
-  translate([to_center_x_ofs+displ_lcd_x_ofs+1, -wall_t, view_hole_top_z-5])
-    rotate([-15, 0, 0])
+    rotate([-12, 0, 0])
       cube([displ_lcd_x-2, supp_t, 6]);
 
   translate([to_center_x_ofs+displ_lcd_x_ofs+1, -wall_t, view_hole_top_z-5])
@@ -249,36 +241,68 @@ module uswitch_supp(show_pcb=false) {
     if (show_pcb) {
       color("blue")
         translate([0, 0, 0])
-          cube([uswitch_supp_y, uswitch_supp_x, 2*rf]);
+          cube([uswitch_supp_x, uswitch_supp_y, 2*rf]);
     }
 
-    translate([uswitch_supp_y/2, pcb_hole_spacing/2+1*pcb_hole_spacing, uswitch_supp_z/2])
+    translate([pcb_hole_spacing/2+1*pcb_hole_spacing, uswitch_supp_y/2, uswitch_supp_z/2])
       cylinder(h=uswitch_supp_z, r=2.5, center=true);
-    translate([uswitch_supp_y/2, pcb_hole_spacing/2+15*pcb_hole_spacing, uswitch_supp_z/2])
+    translate([pcb_hole_spacing/2+15*pcb_hole_spacing, uswitch_supp_y/2, uswitch_supp_z/2])
       cylinder(h=uswitch_supp_z, r=2.5, center=true);
   }
 }
 
 // holes for 3 microswitches (each 3x3 holes in size)
 module uswitch_holes() {
-  hole_engrave_t = bottom_t-0.5;
-  hole_r = 0.9;
 
   union() {
+    hole_engrave_t = top_t-1;
+    hole_r = 1.2;
     hole_h = uswitch_supp_z+hole_engrave_t;
-    translate([uswitch_supp_y/2, pcb_hole_spacing/2+1*pcb_hole_spacing, (uswitch_supp_z-hole_engrave_t-rf)/2+rf])
+
+    translate([pcb_hole_spacing/2+1*pcb_hole_spacing, uswitch_supp_y/2, hole_h/2 + hole_engrave_t])
       cylinder(h=hole_h+rf, r=hole_r, center=true);
-    translate([uswitch_supp_y/2, pcb_hole_spacing/2+15*pcb_hole_spacing, (uswitch_supp_z-hole_engrave_t-rf)/2+rf])
+
+    translate([pcb_hole_spacing/2+15*pcb_hole_spacing, uswitch_supp_y/2, hole_h/2 + hole_engrave_t])
       cylinder(h=hole_h+rf, r=hole_r, center=true);
 
     //sw_hole_h = hole_engrave_t+rf;
-    sw_hole_h = bottom_t + 2*rf;
-    translate([uswitch_supp_y/2, pcb_hole_spacing/2+4*pcb_hole_spacing, -sw_hole_h/2+rf])
-      cylinder(h=sw_hole_h, r=hole_r, center=true);
-    translate([uswitch_supp_y/2, pcb_hole_spacing/2+8*pcb_hole_spacing, -sw_hole_h/2+rf])
-      cylinder(h=sw_hole_h, r=hole_r, center=true);
-    translate([uswitch_supp_y/2, pcb_hole_spacing/2+12*pcb_hole_spacing, -sw_hole_h/2+rf])
-      cylinder(h=sw_hole_h, r=hole_r, center=true);
+    sw_hole_h = top_t + 2*rf;
+    sw_hole_r = 1.5;
+
+    sw_down_x_ofs = pcb_hole_spacing/2+4*pcb_hole_spacing;
+    translate([sw_down_x_ofs, uswitch_supp_y/2+pcb_hole_spacing, sw_hole_h/2])
+      cylinder(h=sw_hole_h, r=sw_hole_r, center=true);
+
+    sw_up_x_ofs = pcb_hole_spacing/2+8*pcb_hole_spacing;
+    translate([sw_up_x_ofs, uswitch_supp_y/2-pcb_hole_spacing, sw_hole_h/2])
+      cylinder(h=sw_hole_h, r=sw_hole_r, center=true);
+
+    sw_set_x_ofs = pcb_hole_spacing/2+12*pcb_hole_spacing;
+    translate([sw_set_x_ofs, uswitch_supp_y/2+pcb_hole_spacing, sw_hole_h/2])
+      cylinder(h=sw_hole_h, r=sw_hole_r, center=true);
+
+    // cut space for pcb & switches
+    translate([(uswitch_supp_x-pcb_hole_spacing*12)/2, -3/2, top_t+2*rf])
+      cube([pcb_hole_spacing*12, uswitch_supp_y + 3, uswitch_supp_z]);
+
+    // engrave switch descrptions
+    text_engrave = 0.2;
+
+    translate([sw_down_x_ofs, -pcb_hole_spacing-1, text_engrave])
+      rotate([0, 180, 180])
+        linear_extrude(height=text_engrave)
+          text("\u25bc", size=5, font="DejaVu Sans", halign="center", valign="center");
+
+    translate([sw_up_x_ofs, -pcb_hole_spacing-1, text_engrave])
+      rotate([0, 180, 180])
+        linear_extrude(height=text_engrave)
+          text("\u25b2", size=5, font="DejaVu Sans", halign="center", valign="center");
+
+    translate([sw_set_x_ofs, -pcb_hole_spacing-1, text_engrave])
+      rotate([0, 180, 180])
+        linear_extrude(height=text_engrave)
+          text("\u25cf", size=5, font="DejaVu Sans", halign="center", valign="center");
+
   }
 }
 
@@ -286,9 +310,12 @@ module uswitch_holes() {
 //------------------------------------------------------------------------------
 
 // back covering or hole
-module back_cover(hole) {
+module top_cover(hole) {
   cover_x_c = box_i_x + 2*cover_overlap;
   cover_y_c = box_i_y + 2*cover_overlap;
+
+  uswitch_x = (cover_x_c - uswitch_supp_x)/2;
+  uswitch_y = box_screw34_y + cover_overlap - uswitch_supp_y - 5;
 
   if (hole)
     cube([cover_x_c + tolerance/2, cover_y_c + tolerance/2, top_t + tolerance/2]);
@@ -310,6 +337,15 @@ module back_cover(hole) {
 
         translate([cover_overlap+tolerance, (cover_y_c-raft_w)/2, top_t-rf])
           cube([box_i_x - 2*tolerance, raft_w, raft_h]);
+
+        translate([uswitch_x+uswitch_supp_x, uswitch_y, uswitch_supp_z+top_t-rf])
+          rotate([0, 180, 0])
+            uswitch_supp(show_pcb=false);
+
+        // protrusion to secure battery in place
+        translate([cover_x_c-cover_overlap-batt_in_gap+(batt_in_gap-6)/2, uswitch_y-10, top_t-rf])
+          cube([6, 6, box_i_z-20]);
+
       }
 
       hole_1_x_ofs = cover_overlap+box_screw1_x+box_screw_t/2;
@@ -323,15 +359,19 @@ module back_cover(hole) {
         rotate([0, 180, 0]) {
           union() {
             translate([hole_1_x_ofs, hole_1_y_ofs, top_t/2])
-              cylinder(h=hole_h, r=1.5, center=true);
+              cylinder(h=hole_h, r=1.6, center=true);
 
             translate([cover_overlap+box_screw_t/2-rf, hole_34_y_ofs, top_t/2])
-              cylinder(h=hole_h, r=1.5, center=true);
+              cylinder(h=hole_h, r=1.6, center=true);
 
             translate([cover_overlap+box_i_x-box_screw_t/2+rf, hole_34_y_ofs, top_t/2])
-              cylinder(h=hole_h, r=1.5, center=true);
+              cylinder(h=hole_h, r=1.6, center=true);
           }
         }
+      }
+
+      translate([uswitch_x, uswitch_y, -rf]) {
+        uswitch_holes();
       }
     }
   }
@@ -343,9 +383,6 @@ module airtracker_box() {
   displ_x = -rf;
   displ_y = box_i_y+wall_t;
 
-  //uswitch_x = displ_x - (uswitch_supp_x/2-(displ_lcd_y_ofs+displ_lcd_x/2));
-  //uswitch_y = displ_y + uswitch_supp_y + tolerance;
-
   difference() {
   //union() {
     union() {
@@ -356,10 +393,6 @@ module airtracker_box() {
 
       translate([displ_x, displ_y, -rf])
           display_supp();
-
-      //~ translate([uswitch_x, uswitch_y, -rf])
-        //~ rotate([0, 0, 270])
-          //~ uswitch_supp(show_pcb=false);
     }
 
     translate([0, -wall_t-rf, 0])
@@ -368,19 +401,15 @@ module airtracker_box() {
     translate([displ_x, displ_y, -rf])
         display_box();
 
-    //~ translate([uswitch_x, uswitch_y, 0])
-      //~ rotate([0, 0, 270])
-        //~ uswitch_holes();
-
     translate([-cover_overlap-tolerance/4, -cover_overlap-tolerance/4, box_i_z])
-      back_cover(hole=true);
+      top_cover(hole=true);
 
     mount_hole_t = wall_t-0.3;
     switch_hole_r = 2.5+tolerance/2;
     mount_hole_y_ofs = -mount_hole_t/2+rf;
 
-    // switch option 1
-    translate([box_i_z/3-wall_t, mount_hole_y_ofs, batt_wall_z+(box_i_z-batt_wall_z)/2])
+    // on/off switch
+    translate([box_i_z/3-wall_t, mount_hole_y_ofs, batt_wall_z+2*(box_i_z-batt_wall_z)/3])
       rotate([90, 0, 0])
         cylinder(h=mount_hole_t, r=switch_hole_r, center=true);
 
@@ -398,4 +427,4 @@ module airtracker_box() {
 airtracker_box();
 
 //translate([-cover_overlap, -cover_overlap, box_i_z+10])
-//  back_cover();
+//  top_cover();

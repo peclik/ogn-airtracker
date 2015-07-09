@@ -44,14 +44,14 @@ and printed on a 3D printer from ABS plastics.
 <img src="../doc/img/case-v2b-b.png" width="200px">
 
 
-### Prism long box with powerbank
+### V3 - Prism long box with powerbank
 
 * With holder for power bank electronics - see below
 
 <img src="../doc/img/case-v3.png" width="200px">
 
 
-### Prism short box
+### V4 - Prism short box
 
 * With holder separate battery charger board
 * *favourite design, but not tested yet*
@@ -68,6 +68,10 @@ The case size can be easily adjusted editing values in `dimensions.scad` file (`
 As an alternative to the separate battery charger and holder one case use electronics from
 power bank [@eBay](http://www.ebay.com/itm/231432999482) and print the *case variants
 with printed holders for battery and electronics*.
+
+<img src="../doc/img/batt-bank.jpg" width="200px">
+
+Just remove electronics including contacts from the powebank case and snap it into the printed box.
 
 Advantages:
 * Components a little bit cheaper suprisingly (but longer case costs something too)
