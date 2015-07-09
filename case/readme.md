@@ -1,6 +1,6 @@
 # LCD 5110 project case
 
-Case designs pro projects with this type of LCD for Nokia 5110 [@eBay](http://www.ebay.com/itm/221475096725):
+Case designs for projects with this type of Nokia 5110 LCD [@eBay](http://www.ebay.com/itm/221475096725):
 
 <img src="../doc/img/lcd5110.jpg" width="200px">
 
@@ -51,9 +51,9 @@ and printed on a 3D printer from ABS plastics.
 <img src="../doc/img/case-v3.png" width="200px">
 
 
-### V4 - Prism short box
+### TBD - V4 - Prism short box
 
-* With holder separate battery charger board
+* With holder for separate battery charger board
 * *favourite design, but not tested yet*
 
 
@@ -81,4 +81,3 @@ Advantages:
 Disadvantages:
 * To protect battery from undervoltage, the CPU and other stuff should be connected to the 5V bank's output, so it engages one other switching regulator (adding some RF noise around)
 * Longer case (more money, longer time to print)
-

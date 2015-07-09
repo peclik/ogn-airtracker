@@ -82,14 +82,14 @@ pcb_hole_spacing = 2.54;
 // microswitches support and holes
 uswitch_supp_x = (16+1)*pcb_hole_spacing;
 uswitch_supp_y = (5+1)*pcb_hole_spacing;
-uswitch_supp_z = 4;
+uswitch_supp_z = 5;
 
 //------------------------------------------------------------------------------
 
 // box inner dimensions
 box_i_x = ((displ_pcb_z > displ_pcb_x) ? displ_pcb_z : displ_pcb_x) + tolerance;
 box_i_y = displ_box_y + tolerance + box_screw_t + batt_len + batt_el_len;
-box_i_z = displ_pcb_z + 2*tolerance;
+box_i_z = displ_pcb_z + 3*tolerance;
 
 //------------------------------------------------------------------------------
 

@@ -13,11 +13,12 @@ The latest version OGN-Airtracker assembly contains:
 * HOPERF RFM69HW transceiver
   [@Anarduino](http://www.anarduino.com/miniwireless/)
 * SMA-female socket with pigtail
-* SW868-WT100 868MHz 50ohm antenna with SMA-male right angle connector
+* 50 ohm antenna with SMA-male right angle connector
   [@AliExpress](http://www.aliexpress.com/item/NiceRF-Rubber-Antenna-SW868-WT100-Wireless-RF-Antenna-868MHz/32319847439.html)
-* Adhesive copper foil tape for antenna counter-weight (some of those short rubber/whip
-  antennas are 1/4 wave monopoles and require ground plane for proper work)
-  [@eBay](http://www.ebay.com/itm/161170293355)
+  \- see Antenna section below
+* adhesive copper foil tape for antenna counter-weight *if needed* as some of those short rubber/whip
+    antennas are 1/4 wave monopoles and require ground plane for proper work)
+    [@eBay](http://www.ebay.com/itm/161170293355)
 * VK2828U7G5LF GPS module
   [@eBay](http://www.ebay.com/itm/251959460965)
 * LCD for Nokia 5110
@@ -33,6 +34,41 @@ The latest version OGN-Airtracker assembly contains:
   [@eBay](http://www.ebay.com/itm/390925108344)
 * Some toroidal ferrite rings for EMC filtering
   [@eBay](http://www.ebay.com/itm/271876448943)
+
+
+### Antenna
+
+*Disclaimer: First, I've to say, I'm an amateur in this field. Not a radio amateur, but real amateur. So some conclusions below can be pure nonsense.*
+
+I recommend look at really nice [Understanding Antenna Specifications and Operation](http://www.digikey.com/en/articles/techzone/2011/mar/understanding-antenna-specifications-and-operation) paper by Linx Technologies.
+Also [ANTENNAS APPLICATIONS FOR RF MODULE](http://www.hoperf.com/upload/rf/ANTENNAS_MODULE.pdf) by HOPERF is informative.
+
+What I've learned:
+* 1/4 wave antennas require ground plane to work correctly
+  * The ground plane's size and orientation has quite an influence on the antenna performace
+  * For example *horizontal ground plane with antena orthogonally above will radiate above ground plane only*
+    (this is usually not wanted for things flying above groud-based receiver antenna -
+    unless we turn the aircraft or at least the antenna upside down, but in this case air-to-air communication
+    is still influenced)
+
+* For the best perfomance and the easiest installation the *full dipole antenna is the best choice* IMHO
+  (of course vertically mounted for required polarization) and *no copper foil* into the case
+
+* I've bought a noname "10cm rubber antenna" thinking it will be better than those 1/4 wave antennas
+  in a shorter housing.
+
+  <img src="../doc/img/antenna-1-4w-10cm.jpg" width="200px">
+  * After removing the plastic housing, I've realized that it's just a 1/4 wave coil which
+    could easily fit into a housing of a half length
+  * So this antenna type would *require a good ground plane*
+
+* I've also bought "21cm 3dB antenna"
+
+  <img src="../doc/img/antenna-1-2w-21cm.jpg" width="200px">
+  * This one has a whip style center-fed dipole antenna inside
+  * Such antenna doesn't require a ground plane, moreover according to papers mentioned,
+    the *ground plane can negatively influence antenna performace* (narrowing or widening bandwidth,
+    shifting resonant frequency, increasing SWR, affect radiation pattern reflections)
 
 
 ### Power supply

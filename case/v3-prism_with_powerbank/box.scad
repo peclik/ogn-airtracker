@@ -19,11 +19,13 @@ CHANGELOG:
 V3.1:
 [*] moved on/off switch hole up (making space for possible GPS antenna connector)
 [*] increase size of the button symbols
+[*] increase size of the uswitch support
 [-] lowered LCD view hole
 [-] narrowed the battery holder - power bank electronics was too loose
 [-] widened x space for LCD (to fit metal cover protrusions)
-[-] increased inner height to easily for LCD pcb
+[-] increased inner height to easily fit LCD pcb
 [-] widened space for USB micro plug
+[-] shortened cover rafts so that they don't interfere in LCD pcb
 
 V3.0 (based on V2.0):
 
@@ -34,7 +36,7 @@ include <dimensions.scad>;
 //------------------------------------------------------------------------------
 
 // columns for screwing back cover
-module box_screw_column(h=box_i_z) {
+module box_screw_column(h=box_i_z-tolerance/2) {
   screw_h = h;
   hole_r = 1.2;
 
@@ -92,7 +94,7 @@ module base_box() {
 
 
     translate([box_i_x+wall_t-box_screw_t-rf, 25, -rf])
-      cube([box_screw_t, box_screw_t, box_i_z]);
+      cube([box_screw_t, box_screw_t, box_i_z-tolerance/2]);
   }
 }
 
@@ -200,10 +202,10 @@ module display_supp() {
   display_supp_y = displ_box_y + 2;
 
   translate([-rf, -display_supp_y-wall_t, 0])
-    cube([display_supp_x+rf, display_supp_y+rf, box_i_z]);
+    cube([display_supp_x+rf, display_supp_y+rf, box_i_z-tolerance/2]);
 
-  translate([box_i_z-display_supp_x+rf, -display_supp_y-wall_t, 0])
-    cube([display_supp_x+rf, display_supp_y+rf, box_i_z]);
+  translate([box_i_x-display_supp_x+rf, -display_supp_y-wall_t, 0])
+    cube([display_supp_x+rf, display_supp_y+rf, box_i_z-tolerance/2]);
 }
 
 // display box
@@ -285,7 +287,7 @@ module uswitch_holes() {
     translate([(uswitch_supp_x-pcb_hole_spacing*12)/2, -3/2, top_t+2*rf])
       cube([pcb_hole_spacing*12, uswitch_supp_y + 3, uswitch_supp_z]);
 
-    // engrave switch descrptions
+    // engrave switch descriptions
     text_engrave = 0.2;
 
     translate([sw_down_x_ofs, -pcb_hole_spacing-1, text_engrave])
@@ -330,10 +332,10 @@ module top_cover(hole) {
         raft_h = cover_raft_z+rf;
         //translate([batt_in_gap-raft_w-tolerance, cover_overlap+tolerance, top_t-rf])
         translate([1*cover_x_c/3-raft_w/2, cover_overlap+tolerance, top_t-rf])
-          cube([raft_w, box_i_y - 2*tolerance, raft_h]);
+          cube([raft_w, box_i_y - displ_box_y - 2*tolerance, raft_h]);
 
         translate([2*cover_x_c/3-raft_w/2, cover_overlap+tolerance, top_t-rf])
-          cube([raft_w, box_i_y - 2*tolerance, raft_h]);
+          cube([raft_w, box_i_y - displ_box_y - 2*tolerance, raft_h]);
 
         translate([cover_overlap+tolerance, (cover_y_c-raft_w)/2, top_t-rf])
           cube([box_i_x - 2*tolerance, raft_w, raft_h]);
@@ -343,8 +345,8 @@ module top_cover(hole) {
             uswitch_supp(show_pcb=false);
 
         // protrusion to secure battery in place
-        translate([cover_x_c-cover_overlap-batt_in_gap+(batt_in_gap-6)/2, uswitch_y-10, top_t-rf])
-          cube([6, 6, box_i_z-20]);
+        translate([cover_x_c-cover_overlap-batt_in_gap+(batt_in_gap-5)/2, uswitch_y-10, top_t-rf])
+          cube([5, 5, box_i_z-20]);
 
       }
 
@@ -401,7 +403,7 @@ module airtracker_box() {
     translate([displ_x, displ_y, -rf])
         display_box();
 
-    translate([-cover_overlap-tolerance/4, -cover_overlap-tolerance/4, box_i_z])
+    translate([-cover_overlap-tolerance/4, -cover_overlap-tolerance/4, box_i_z - tolerance / 2 +rf])
       top_cover(hole=true);
 
     mount_hole_t = wall_t-0.3;
@@ -409,12 +411,12 @@ module airtracker_box() {
     mount_hole_y_ofs = -mount_hole_t/2+rf;
 
     // on/off switch
-    translate([box_i_z/3-wall_t, mount_hole_y_ofs, batt_wall_z+2*(box_i_z-batt_wall_z)/3])
+    translate([box_i_x/3-wall_t, mount_hole_y_ofs, batt_wall_z+2*(box_i_z-batt_wall_z)/3])
       rotate([90, 0, 0])
         cylinder(h=mount_hole_t, r=switch_hole_r, center=true);
 
     // hole for antenna
-    translate([2*box_i_z/3+wall_t, mount_hole_y_ofs, 13])
+    translate([2*box_i_x/3+wall_t, mount_hole_y_ofs, 13])
       rotate([90, 0, 0])
         cylinder(h=mount_hole_t, r=3+tolerance/2, center=true);
   }
