@@ -2,6 +2,16 @@
 
 Live plane tracker based on [Open Glider Network project](http://www.glidernet.org/).
 
+<img src="doc/img/case-v3-photo1.jpg" width="400px">
+
+<img src="doc/img/case-v3-photo2.jpg" width="120px">
+<img src="doc/img/case-v3-photo3.jpg" width="120px">
+<img src="doc/img/case-v3-photo4.jpg" width="120px">
+<img src="doc/img/case-v3-photo5.jpg" width="120px">
+<img src="doc/img/case-v3-photo6.jpg" width="120px">
+<img src="doc/img/case-v3-photo7.jpg" width="120px">
+
+
 ## Hardware
 
 Hardware is a flavor of the [Cheap Do-It-Yourself OGN tracker](http://wiki.glidernet.org/ogn-tracker-diy).
@@ -101,7 +111,7 @@ enhanced with LCD display and buttons control.
 For now in [separate module](https://github.com/peclik/diy-tracker/tree/lcd).
 
 Build with LCD support:
-* `make "WITH_OPTS=lcd5110 buttons"`
+* `make "WITH_OPTS=lcd5110 buttons displvflip"`
 
 
 ## Case

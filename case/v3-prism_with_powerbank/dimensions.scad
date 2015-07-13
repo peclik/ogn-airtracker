@@ -65,12 +65,12 @@ displ_pcb_z = 45;
 //displ_cover_y = 3.5;
 //displ_cover_z = 34;
 
-displ_lcd_x_ofs = 5;
-displ_lcd_z_ofs = 8.5;
+displ_lcd_x_ofs = 4;
+displ_lcd_z_ofs = 13;
 
 // lcd hole width and height
 displ_lcd_x = displ_pcb_x-2*displ_lcd_x_ofs;
-displ_lcd_z = displ_pcb_z-13.5-displ_lcd_z_ofs;
+displ_lcd_z = displ_pcb_z-8-displ_lcd_z_ofs;
 
 displ_supp_t = 1.5;
 

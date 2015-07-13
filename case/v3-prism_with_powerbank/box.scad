@@ -17,6 +17,7 @@ TODO:
 CHANGELOG:
 
 V3.1:
+[!] LCD flipped udside down
 [*] moved on/off switch hole up (making space for possible GPS antenna connector)
 [*] increase size of the button symbols
 [*] increase size of the uswitch support
@@ -223,16 +224,18 @@ module display_view_support() {
   view_hole_top_z = displ_lcd_z_ofs + displ_lcd_z;
   supp_t = 0.3;
 
-  translate([to_center_x_ofs+displ_lcd_x_ofs-rf, -wall_t, displ_lcd_z_ofs-rf])
-    cube([displ_lcd_x+2*rf, supp_t, displ_lcd_z+2*rf]);
+  color("gray") {
+    translate([to_center_x_ofs+displ_lcd_x_ofs-rf, -wall_t, displ_lcd_z_ofs-rf])
+      cube([displ_lcd_x+2*rf, supp_t, displ_lcd_z+2*rf]);
 
-  translate([to_center_x_ofs+displ_lcd_x_ofs+1, -wall_t, view_hole_top_z-5])
-    rotate([-12, 0, 0])
-      cube([displ_lcd_x-2, supp_t, 6]);
+    translate([to_center_x_ofs+displ_lcd_x_ofs+1, -wall_t, view_hole_top_z-5])
+      rotate([-12, 0, 0])
+        cube([displ_lcd_x-2, supp_t, 6]);
 
-  translate([to_center_x_ofs+displ_lcd_x_ofs+1, -wall_t, view_hole_top_z-5])
-    rotate([-23, 0, 0])
-      cube([displ_lcd_x-2, supp_t, 6]);
+    translate([to_center_x_ofs+displ_lcd_x_ofs+1, -wall_t, view_hole_top_z-5])
+      rotate([-23, 0, 0])
+        cube([displ_lcd_x-2, supp_t, 6]);
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -293,17 +296,17 @@ module uswitch_holes() {
     translate([sw_down_x_ofs, -pcb_hole_spacing-1, text_engrave])
       rotate([0, 180, 180])
         linear_extrude(height=text_engrave)
-          text("\u25bc", size=5, font="DejaVu Sans", halign="center", valign="center");
+          text("\u25bc", size=4, font="DejaVu Sans", halign="center", valign="center");
 
     translate([sw_up_x_ofs, -pcb_hole_spacing-1, text_engrave])
       rotate([0, 180, 180])
         linear_extrude(height=text_engrave)
-          text("\u25b2", size=5, font="DejaVu Sans", halign="center", valign="center");
+          text("\u25b2", size=4, font="DejaVu Sans", halign="center", valign="center");
 
     translate([sw_set_x_ofs, -pcb_hole_spacing-1, text_engrave])
       rotate([0, 180, 180])
         linear_extrude(height=text_engrave)
-          text("\u25cf", size=5, font="DejaVu Sans", halign="center", valign="center");
+          text("\u25cf", size=4, font="DejaVu Sans", halign="center", valign="center");
 
   }
 }
