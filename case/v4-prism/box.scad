@@ -10,24 +10,29 @@
 //------------------------------------------------------------------------------
 /*
 TODO for printing the box from top to bottom:
-[!] print the box from top to bottom
- - better access to battery when it's just above the cover
-[+] GPS holder
-[+] battery holder fixation points
- - charger holder on a side like LCD holder,
+[+] battery holder fixation points (battery on its left side, screwed to the wall printed in the middle of the cover)
 
+TODO:
+[+] battery charger holder - check size (back support between corners), holes, usb position
+[+] move back mounting poles to corners (battery should be aligned with the right wall)
+[-] more space for buttons PCB (probably move GPS to the left wall, move middle charger pole beside GPS poles, so that GPS can be moved further to back)
+
+CHANGELOG:
+
+V4.1 (after prototype 1):
+[+] engrave for antenna and on/off switch nuts
+[-] corrected holes in GPS holder poles
+[-] larger holes for button knobs
+
+
+V4.0 (based on V3.1):
 DONE for printing the box from top to bottom:
 [!] LCD view upside down
 [!] antenna and on/off switch positions flipped
 [!] microswitches replaced from the cover to the box
+[*] 4 cover mounting columns instead of 3 - better anti-delamination support
+[+] GPS holder
 
-TODO:
-[*] 4 cover mounting columns instead of 3? - better anti-delamination support
-
-CHANGELOG:
-
-
-V4.0 (based on V3.1):
 
 */
 
@@ -37,13 +42,12 @@ include <dimensions.scad>;
 
 // columns for screwing back cover
 module box_screw_column(h=box_i_z-tolerance/2) {
-  screw_h = h;
-  hole_r = 1.2;
+  screw_h = 15;
 
   difference() {
     cube([box_screw_t, box_screw_t, h]);
     translate([box_screw_t/2, box_screw_t/2, h-screw_h/2+rf])
-      cylinder(h=screw_h+rf, r=hole_r, center=true);
+      cylinder(h=screw_h+rf, r=box_screw_r, center=true);
   }
 }
 
@@ -82,47 +86,17 @@ module base_box() {
     }
 
     // columns for screws mounting back cover
-    translate([box_screw1_x, -rf, -rf])
-      box_screw_column();
-
     translate([-rf, box_screw34_y, -rf])
       box_screw_column();
 
     translate([box_i_x-box_screw_t+rf, box_screw34_y, -rf])
       box_screw_column();
 
+    translate([wall_t-box_screw_t+box_screw_r+rf, 15, -rf])
+      box_screw_column();
 
-    translate([wall_t-box_screw_t+rf, 25, -rf])
-      cube([box_screw_t, box_screw_t, box_i_z-tolerance/2]);
-  }
-}
-
-//------------------------------------------------------------------------------
-
-// holes for power bank usb connectors
-module battery_usb_holes() {
-  translate([(box_i_x-8-tolerance)/2, 0, 5])
-    cube([8+tolerance, wall_t+2*rf, 3+tolerance]);
-
-  // micro outter engrave
-  u_engrave = wall_t-1;
-  translate([(box_i_x-12-tolerance)/2, 0, 5-(8-3-tolerance)/2])
-    cube([12+tolerance, u_engrave+rf, 8+tolerance]);
-}
-
-//------------------------------------------------------------------------------
-
-// holes for CPU board usb connectors
-module cpu_usb_holes() {
-  cpu_pcb_x = 23;
-  cpu_pcb_z = 1.5;
-  cpu_pcb_engrave = 1;
-  cpu_usb_x = 8;
-  cpu_usb_z = 3;
-  union() {
-    cube([cpu_pcb_x+tolerance, cpu_pcb_engrave+rf, cpu_pcb_z]);
-    translate([(cpu_pcb_x-cpu_usb_x)/2, 0, 0.5])
-      cube([cpu_usb_x+tolerance, wall_t+rf, cpu_usb_z]);
+    translate([box_i_x-box_screw_t/2-box_screw_r+rf, 15, -rf])
+      box_screw_column();
   }
 }
 
@@ -159,13 +133,59 @@ module display_view_support() {
   translate([to_center_x_ofs+displ_lcd_x_ofs-rf, -wall_t, displ_lcd_z_ofs-rf])
     cube([displ_lcd_x+2*rf, supp_t, displ_lcd_z+2*rf]);
 
-  //~ translate([to_center_x_ofs+displ_lcd_x_ofs+1, -wall_t, view_hole_top_z-5])
-    //~ rotate([-12, 0, 0])
-      //~ cube([displ_lcd_x-2, supp_t, 6]);
+  translate([to_center_x_ofs+displ_lcd_x_ofs+1, -wall_t, view_hole_top_z-5])
+    rotate([-12, 0, 0])
+      cube([displ_lcd_x-2, supp_t, 6]);
 
-  //~ translate([to_center_x_ofs+displ_lcd_x_ofs+1, -wall_t, view_hole_top_z-5])
-    //~ rotate([-23, 0, 0])
-      //~ cube([displ_lcd_x-2, supp_t, 6]);
+  translate([to_center_x_ofs+displ_lcd_x_ofs+1, -wall_t, view_hole_top_z-5])
+    rotate([-23, 0, 0])
+      cube([displ_lcd_x-2, supp_t, 6]);
+  }
+}
+
+//------------------------------------------------------------------------------
+
+module gps_support_poles(hole=false) {
+
+  gps_pole_x_ofs = 2.5;
+  gps_pole_y_ofs = 2.5;
+  gps_pole_r = hole ? 1.2 : 2.5;
+  gps_pole_h = hole ? (gps_supp_z + 2*rf) : gps_supp_z;
+
+  translate([gps_pole_x_ofs, gps_supp_t + gps_pole_y_ofs, gps_pole_h/2])
+    cylinder(h=gps_pole_h, r=gps_pole_r, center=true);
+  if (!hole)
+    translate([gps_pole_r, gps_pole_r, gps_pole_h/2])
+      cube([2*gps_pole_r, 2*gps_pole_r, gps_pole_h], center=true);
+
+  translate([gps_supp_x - gps_pole_x_ofs, gps_supp_t + gps_pole_y_ofs, gps_pole_h/2])
+    cylinder(h=gps_pole_h, r=gps_pole_r, center=true);
+  if (!hole)
+    translate([gps_supp_x - gps_pole_x_ofs, gps_pole_r, gps_pole_h/2])
+      cube([2*gps_pole_r, 2*gps_pole_r, gps_pole_h], center=true);
+
+  translate([gps_pole_x_ofs, gps_supp_gap + gps_supp_t - gps_pole_y_ofs, gps_pole_h/2])
+    cylinder(h=gps_pole_h, r=gps_pole_r, center=true);
+  if (!hole)
+    translate([gps_pole_r, gps_supp_gap+gps_pole_r-gps_supp_t, gps_pole_h/2])
+      cube([2*gps_pole_r, 2*gps_pole_r, gps_pole_h], center=true);
+
+  translate([gps_supp_x - gps_pole_x_ofs, gps_supp_gap + gps_supp_t - gps_pole_y_ofs, gps_pole_h/2])
+    cylinder(h=gps_pole_h, r=gps_pole_r, center=true);
+  if (!hole)
+    translate([gps_supp_x - gps_pole_x_ofs, gps_supp_gap+gps_pole_r-gps_supp_t, gps_pole_h/2])
+      cube([2*gps_pole_r, 2*gps_pole_r, gps_pole_h], center=true);
+}
+
+module gps_support() {
+  color("red")
+  union() {
+    translate([0, gps_supp_gap + gps_supp_t, 0])
+      cube([gps_supp_x, gps_supp_t, gps_supp_z]);
+
+    cube([gps_supp_x, gps_supp_t, gps_supp_z]);
+
+    gps_support_poles();
   }
 }
 
@@ -203,7 +223,7 @@ module uswitch_holes() {
 
     //sw_hole_h = hole_engrave_t+rf;
     sw_hole_h = bottom_t;
-    sw_hole_r = 1.5;
+    sw_hole_r = 1.7;
 
     sw_down_x_ofs = pcb_hole_spacing/2+4*pcb_hole_spacing;
     translate([sw_down_x_ofs, uswitch_supp_y/2+pcb_hole_spacing, -sw_hole_h/2])
@@ -238,6 +258,70 @@ module uswitch_holes() {
   }
 }
 
+//------------------------------------------------------------------------------
+
+// hole for micro USB connectors (x/z-centered at 0)
+module micro_usb_hole() {
+  translate([-(12+tolerance)/2, 0, -(8+tolerance)/2]) {
+    // outter engrave
+    u_engrave = wall_t-1.5;
+    cube([12+tolerance, u_engrave+rf, 8+tolerance]);
+
+    // hole
+    translate([(12-8)/2, 0, (8-3)/2])
+      cube([8+tolerance, wall_t+2*rf, 3+tolerance]);
+  }
+}
+
+//------------------------------------------------------------------------------
+
+// battery charger support
+module charger_supp() {
+  color("pink") {
+    charger_supp_h = charger_pcb_ofs_z + charger_overlap_z;
+    // PCB support blocks - to be cut for PCB fitting
+
+    // front left block
+    cube([charger_supp_t + charger_overlap_x, charger_supp_t, charger_supp_h]);
+
+    // front right block
+    translate([charger_supp_x - charger_overlap_x - charger_supp_t, 0, 0])
+      cube([charger_supp_t + charger_overlap_x, charger_supp_t, charger_supp_h]);
+
+    // back right block
+    //~ translate([charger_supp_x - charger_overlap_x + rf, charger_pcb_my - charger_supp_t, 0])
+      //~ cube([charger_supp_ofs_x, charger_supp_t, charger_supp_h]);
+
+    // back middle block
+    translate([(charger_supp_x - charger_supp_t)/2, charger_pcb_my - charger_b_supp_y, 0])
+      cube([charger_supp_t, charger_b_supp_y + charger_overlap_y, charger_supp_h]);
+  }
+}
+
+// cut for battery charger PCB and USB connector
+module charger_supp_cut() {
+  pcb_t = 2;
+
+  translate([charger_overlap_x, 0, charger_pcb_ofs_z - tolerance/2]) {
+    cube([charger_pcb_x + tolerance, charger_pcb_my + tolerance, tolerance/2 + charger_overlap_z + rf]);
+
+    translate([(charger_pcb_x + tolerance)/2, -wall_t, -charger_usb_ofs_z + tolerance/2])
+      micro_usb_hole();
+  }
+
+  charger_hole_h = charger_pcb_ofs_z + charger_overlap_z + rf;
+  charger_hole_r = 1;
+
+  translate([charger_overlap_x + 2 + tolerance/2, 2, charger_hole_h/2])
+    cylinder(h=charger_hole_h, r=charger_hole_r, center=true);
+
+  translate([charger_overlap_x + charger_pcb_x - 2 + tolerance/2, 2, charger_hole_h/2])
+    cylinder(h=charger_hole_h, r=charger_hole_r, center=true);
+
+  translate([charger_supp_x/2, charger_pcb_my + charger_hole_r + 2*tolerance, charger_hole_h/2])
+    cylinder(h=charger_hole_h, r=charger_hole_r, center=true);
+
+}
 
 //------------------------------------------------------------------------------
 
@@ -299,7 +383,15 @@ module airtracker_box() {
   displ_y = box_i_y+wall_t;
 
   uswitch_x = (box_i_x-uswitch_supp_x)/2;
-  uswitch_y = box_screw34_y + cover_overlap - uswitch_supp_y - 5;
+  uswitch_y = box_screw34_y - uswitch_supp_y - 1;
+
+  gps_x = box_i_x-gps_supp_x+rf;
+  //gps_y = uswitch_y - gps_supp_y - 3;
+  gps_y = charger_pcb_my + charger_overlap_y - rf;
+
+  //charger_x = box_i_x - charger_supp_x + charger_overlap_x - charger_supp_ofs_x + rf;
+  charger_x = box_i_x-box_screw_t/2-box_screw_r-charger_supp_x+charger_overlap_x-rf;
+  charger_z = -rf;
 
   difference() {
   //union() {
@@ -310,14 +402,17 @@ module airtracker_box() {
           display_supp();
 
       translate([uswitch_x, uswitch_y, -rf])
-        uswitch_supp(show_pcb=true);
+        uswitch_supp(show_pcb=false);
+
+      translate([gps_x, gps_y, -rf])
+        gps_support();
+
+      translate([charger_x, -rf, charger_z])
+        charger_supp();
     }
 
     translate([-cover_overlap-tolerance/4, -cover_overlap-tolerance/4, box_i_z - tolerance / 2 +rf])
       top_cover(hole=true);
-
-    translate([0, -wall_t-rf, 0])
-      battery_usb_holes();
 
     translate([displ_x, displ_y, -rf])
         display_box();
@@ -325,19 +420,31 @@ module airtracker_box() {
     translate([uswitch_x, uswitch_y, -rf])
       uswitch_holes();
 
-    mount_hole_t = wall_t-0.3;
+    translate([gps_x, gps_y, -rf])
+      gps_support_poles(hole=true);
+
+    translate([charger_x, -rf, charger_z])
+      charger_supp_cut();
+
+    mount_hole_t = wall_t+rf;
     switch_hole_r = 2.5+tolerance/2;
     mount_hole_y_ofs = -mount_hole_t/2+rf;
 
     // on/off switch
-    translate([3*box_i_x/4, mount_hole_y_ofs, 10])
-      rotate([90, 0, 0])
+    translate([box_i_x-charger_pcb_x/2-charger_supp_ofs_x, mount_hole_y_ofs, charger_pcb_ofs_z + 13])
+      rotate([90, 0, 0]) {
         cylinder(h=mount_hole_t, r=switch_hole_r, center=true);
+        translate([0, 0, -(mount_hole_t-1)/2])
+          cylinder(h=1, r=4+tolerance/2, center=true, $fn=6);
+      }
 
     // hole for antenna
-    translate([box_i_x/4, mount_hole_y_ofs, box_i_z-13])
-      rotate([90, 0, 0])
+    translate([(box_i_x-box_screw_t)/4, mount_hole_y_ofs, box_i_z-10])
+      rotate([90, 0, 0]) {
         cylinder(h=mount_hole_t, r=3+tolerance/2, center=true);
+        translate([0, 0, -(mount_hole_t-1)/2])
+          cylinder(h=1, r=4.5+tolerance/2, center=true, $fn=6);
+      }
   }
 
   translate([displ_x, displ_y, -rf])

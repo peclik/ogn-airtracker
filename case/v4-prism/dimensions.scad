@@ -35,6 +35,7 @@ batt_len = 75;
 
 // column for screws mounting back cover
 box_screw_t = 6;
+box_screw_r = 1.2;
 
 // box outer rounded edge radius
 box_corner_r = 1.5;
@@ -71,6 +72,52 @@ pcb_hole_spacing = 2.54;
 uswitch_supp_x = (16+1)*pcb_hole_spacing;
 uswitch_supp_y = (5+1)*pcb_hole_spacing;
 uswitch_supp_z = 5;
+
+//------------------------------------------------------------------------------
+
+// GPS PCB size
+
+// gps support thickness
+gps_supp_t = 1.75;
+
+// gap between left and right GPS support (antenna width)
+gps_supp_gap = 25.2 + tolerance;
+
+gps_supp_x = 36;
+gps_supp_y = gps_supp_gap + 2*gps_supp_t;
+gps_supp_z = 4.5;
+
+
+//------------------------------------------------------------------------------
+
+// battery charger
+
+ // TODO
+charger_pcb_x = 17;
+charger_pcb_y = 26;
+// middle inset
+charger_pcb_my = charger_pcb_y - 1;
+
+// PCB z offset (bottom side)
+charger_pcb_ofs_z = 5+1.5;
+
+// connector's center offset relative to PCB
+charger_usb_ofs_z = 2;
+
+// PCB support overlaps
+charger_overlap_x = 2;
+charger_overlap_y = 4;
+charger_overlap_z = 2;
+
+// front & back support
+charger_supp_t = 4;
+charger_b_supp_y = 2;
+
+// offset moving right support out of box wall for antidelamination around usb hole
+charger_supp_ofs_x = 1;
+
+//charger_supp_z = charger_pcb_x + 2 * (charger_supp_h-charger_overlap_z);
+charger_supp_x = charger_pcb_x + 2 * charger_overlap_x + tolerance;
 
 //------------------------------------------------------------------------------
 
